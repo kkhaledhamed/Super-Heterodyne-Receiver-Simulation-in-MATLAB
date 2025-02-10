@@ -59,19 +59,19 @@ The MATLAB code implements the following steps:
   [stereo1, fs1] = audioread("Short_QuranPalestine.wav");
   mono1 = mean(stereo1, 2); % Convert to mono
 
-  - **AM Modulation:**
+- **AM Modulation:**
   ```matlab
    carrier1 = cos(2 * pi * fcl * t);
    modulated1 = mono1_interp .* carrier1;
 
-  - **RF Stage:**
+- **RF Stage:**
   ```matlab
   BPF_RF1 = designfilt('bandpassiir', 'FilterOrder', filterorder, ...
     'HalfPowerFrequency1', fpass1(1), 'HalfPowerFrequency2', fpass1(2), ...
     'SampleRate', fsnew);
   filteredsignal1 = filter(BPF_RF1, FDMsignal);
 
-  - **Baseband Detection:**
+- **Baseband Detection:**
   ```matlab
    baseband_carrier1 = cos(2 * pi * f_IF * t);
    baseband_signal1 = IF_filtered_signal1 .* baseband_carrier1;
