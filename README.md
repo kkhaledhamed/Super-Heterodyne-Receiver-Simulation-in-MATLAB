@@ -57,3 +57,45 @@ The MATLAB code implements the following steps:
   ```matlab
   [stereo1, fs1] = audioread("Short_QuranPalestine.wav");
   mono1 = mean(stereo1, 2); % Convert to mono
+
+  - **AM Modulation:**
+  ```matlab
+   carrier1 = cos(2 * pi * fcl * t);
+   modulated1 = mono1_interp .* carrier1;
+
+  - **RF Stage:**
+  ```matlab
+  BPF_RF1 = designfilt('bandpassiir', 'FilterOrder', filterorder, ...
+    'HalfPowerFrequency1', fpass1(1), 'HalfPowerFrequency2', fpass1(2), ...
+    'SampleRate', fsnew);
+  filteredsignal1 = filter(BPF_RF1, FDMsignal);
+
+  - **Baseband Detection:**
+  ```matlab
+   baseband_carrier1 = cos(2 * pi * f_IF * t);
+   baseband_signal1 = IF_filtered_signal1 .* baseband_carrier1;
+   baseband_signal1_filtered = filter(LPF1, baseband_signal1);
+
+## Results and Discussion
+- Output Sound Quality:
+
+The demodulated signals were clear and closely resembled the original audio, confirming the correct operation of the receiver.
+
+- Impact of Noise:
+
+Adding noise with SNR values of 15 dB and -15 dB resulted in audible distortion, with lower SNR values causing more severe degradation.
+
+- Impact of Removing RF BPF:
+
+Without the RF BPF, the demodulated signal suffered from interference and distortion due to overlapping frequency components.
+
+- Impact of Oscillator Frequency Offset:
+
+A 0.2 kHz offset caused minor distortion, while a 1.2 kHz offset rendered the signal unintelligible.
+
+---
+
+References
+MATLAB Documentation: https://www.mathworks.com/help/
+
+AM Modulation and Super-Heterodyne Receiver Theory.
