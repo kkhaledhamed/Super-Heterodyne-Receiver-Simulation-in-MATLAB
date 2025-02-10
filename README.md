@@ -6,6 +6,7 @@ This project simulates a **super-heterodyne receiver** using MATLAB. The system 
 ---
 
 ## Project Structure
+![image](https://github.com/user-attachments/assets/a0442beb-4b3e-46cb-bc08-d0a8b6f908dd)
 The project is divided into the following blocks:
 1. **Transmitter:**
    - **Preprocessing Block:** Loads and prepares audio signals for modulation.
